@@ -24,8 +24,8 @@ phases:
   build:
     commands:
       - echo "Running KBOM generation scripts..."
-      - chmod +x scripts/generate_kbom.sh
-      - ./scripts/generate_kbom.sh
+      - chmod +x scripts/kbom-generator.sh
+      - ./scripts/kbom-generator.sh
 
 artifacts:
   files:
