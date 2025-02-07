@@ -1,0 +1,32 @@
+version: 0.2
+
+env:
+  variables:
+    AWS_REGION: "us-east-1"
+    EKS_CLUSTER: "my-new-k8s-cluster"
+
+phases:
+  install:
+    runtime-versions:
+      python: 3.8
+    commands:
+      - echo "Installing dependencies..."
+      - yum install -y jq
+      - curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b /usr/local/bin
+      - curl -sSfL https://raw.githubusercontent.com/anchore/syft/main/install.sh | sh -s -- -b /usr/local/bin
+
+  pre_build:
+    commands:
+      - echo "Updating kubeconfig..."
+      - aws eks --region "$AWS_REGION" update-kubeconfig --name "$EKS_CLUSTER"
+      - aws sts get-caller-identity
+
+  build:
+    commands:
+      - echo "Running KBOM generation scripts..."
+      - chmod +x scripts/generate_kbom.sh
+      - ./scripts/generate_kbom.sh
+
+artifacts:
+  files:
+    - kbom_output/k8s_bom.json
