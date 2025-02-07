@@ -2,7 +2,7 @@
 
 # Define output directory
 OUTPUT_DIR="kbom_output"
-S3_BUCKET="test-kbom-reports-bucket-7feb2025"
+S3_BUCKET="kbom-reports-bucket-1243"
 mkdir -p $OUTPUT_DIR
 
 # Get the current Kubernetes context

@@ -1,7 +1,7 @@
 const AWS = require('aws-sdk');
 const s3 = new AWS.S3();
 
-const S3_BUCKET = process.env.S3_BUCKET || "test-kbom-reports-bucket-7feb2025";
+const S3_BUCKET = process.env.S3_BUCKET || "kbom-reports-bucket-1243";
 const KBOM_FILE = "k8s_bom.json";
 
 exports.handler = async (event) => {
